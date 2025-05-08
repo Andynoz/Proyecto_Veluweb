@@ -1,0 +1,14 @@
+{% extends 'todo/layout.html' %}
+
+{% block content %}
+<div class="formulario">
+  <h2>Agregar Cliente</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset>
+      {{ form.as_p }}
+      <button type="submit">Guardar</button>
+    </fieldset>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'todo/layout.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="contenedor-articulos" style="position: relative">
+  <section>
+    <h2>Lista de Clientes</h2>
+
+    <a class="boton-agregar" href="{% url 'agregar' %}">
+      <img src="{% static 'todo/images/icono-anadir.png' %}" alt="Agregar">
+    </a>
+
+    <table class="formulario">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente in clientes %}
+        <tr>
+          <td>{{ cliente.id }}</td>
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.apellido }}</td>
+          <td>{{ cliente.correo }}</td>
+          <td>{{ cliente.telefono }}</td>
+          <td>
+            <a class="clickeable" href="{% url 'eliminar' cliente.id %}">Eliminar</a>
+            <a class="clickeable" href="{% url 'editar' cliente.id %}">Editar</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6">No hay clientes registrados.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+{% endblock %}
