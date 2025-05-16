@@ -110,6 +110,12 @@ table {
 
 /*Aqui empiezan los estilos propios*/
 
+/*a general para todo*/
+a{
+    text-decoration: none;
+    color: white;
+}
+
 body{
     font-family: 'branding_proregular',Arial, Helvetica, sans-serif;
 }
@@ -226,7 +232,18 @@ header img{
     border-radius: 5px;
     padding: 10px;
 }
-
+.boton-accion {
+    display: inline-block;
+    background-color: #294475;
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    margin: 0 4px;
+    border-radius: 4px;
+    min-width: 80px;
+    text-align: center;
+  }
+  
 .boton-agregar {
     background-color: #294475;
     width: 60px;
@@ -312,7 +329,7 @@ input[type="date"],
     border-radius: 10px; /* bordes redondeados */
     padding: 20px;
     margin: 20px auto;
-    width: 90%;
+    width: 100%;
     max-width: 1000px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* sombrita */
 }
@@ -346,7 +363,7 @@ table.formulario {
   }
   
 
-/* Botones */
+/* Botones */  
 .contenedor-articulos a.clickable {
     margin-right: 10px;
     text-decoration: none;
@@ -441,3 +458,72 @@ footer a:hover{
 -cualquier otra sugerencia ponerla aqui
 -comentar las partes nuevas que añadan para entender todo el codigo
 -faltan comentarios pero ya no hay tiempo xd
+
+Diseño del login*/
+
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            max-width: 100px;
+        }
+
+        .login-container h2 {
+            color: #183a5e;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #183a5e;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .form-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-actions button {
+            background-color: #183a5e;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 48%;
+        }
+
+        .form-actions button:hover {
+            background-color: #145ba0;
+        }
+        

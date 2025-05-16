@@ -31,8 +31,8 @@
           <td>{{ cliente.correo }}</td>
           <td>{{ cliente.telefono }}</td>
           <td>
-            <a class="clickeable" href="{% url 'eliminar' cliente.id %}">Eliminar</a>
-            <a class="clickeable" href="{% url 'editar' cliente.id %}">Editar</a>
+              <a class="clickeable boton-accion" href="{% url 'eliminar' cliente.id %}">Eliminar</a>
+              <a class="clickeable boton-accion" href="{% url 'editar' cliente.id %}">Editar</a>
           </td>
         </tr>
         {% empty %}
