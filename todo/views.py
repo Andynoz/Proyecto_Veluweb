@@ -5,6 +5,11 @@ from .forms import ClienteForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .models import PasswordResetToken
+from django.utils import timezone
+from django.core.mail import send_mail
+from datetime import timedelta
+import uuid
 
 def home(request):
     clientes = Cliente.objects.all()
@@ -69,5 +74,58 @@ def registro_view(request):
             return redirect('login')
     return render(request, 'todo/registro.html')
 
+
+def enviar_codigo_reset(user):
+    token = PasswordResetToken.objects.create(
+        user=user,
+        expires_at=timezone.now() + timedelta(minutes=10)
+    )
+    
+    asunto = 'Código de recuperación de contraseña'
+    mensaje = f'Hola {user.username}, tu código para restablecer tu contraseña es:\n\n{token.token}'
+    remitente = 'andynox27v@gmail.com'
+    destinatario = [user.email]
+    
+    send_mail(asunto, mensaje, remitente, destinatario)
+
 def recuperacion(request):
+    if request.method == 'POST':
+        correo = request.POST.get('correo')
+        try:
+            user = User.objects.get(email=correo)
+            enviar_codigo_reset(user)
+            messages.success(request, 'Se ha enviado un código de recuperación a tu correo.')
+            return redirect('verificar_codigo')
+        except User.DoesNotExist:
+            messages.error(request, 'No se encontró una cuenta con ese correo.')
     return render(request, 'todo/recuperacion.html')
+
+def verificar_codigo(request):
+    if request.method == 'POST':
+        token = request.POST.get('token')
+        try:
+            token_obj = PasswordResetToken.objects.get(token=token)
+            if token_obj.is_valid():
+                request.session['reset_user_id'] = token_obj.user.id
+                return redirect('nueva_contrasena')
+            else:
+                messages.error(request, 'El código ha expirado.')
+        except PasswordResetToken.DoesNotExist:
+            messages.error(request, 'Código inválido.')
+    return render(request, 'todo/verificar_codigo.html')
+
+def nueva_contrasena(request):
+    user_id = request.session.get('reset_user_id')
+    if not user_id:
+        return redirect('recuperacion')
+
+    user = User.objects.get(id=user_id)
+    if request.method == 'POST':
+        nueva = request.POST.get('password')
+        user.set_password(nueva)
+        user.save()
+        del request.session['reset_user_id']
+        messages.success(request, 'Contraseña actualizada correctamente.')
+        return redirect('login')
+    
+    return render(request, 'todo/nueva_contrasena.html')
