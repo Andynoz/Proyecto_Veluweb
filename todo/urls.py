@@ -11,4 +11,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('registro/', views.registro_view, name='registro'),
     path('recuperacion/', views.recuperacion, name='recuperacion'),
+    path('verificar-codigo/', views.verificar_codigo, name='verificar_codigo'),
+    path('nueva-contrasena/', views.nueva_contrasena, name='nueva_contrasena'),
 ]
