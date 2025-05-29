@@ -299,6 +299,7 @@ header img{
 /*Los estilos de todos los diferents inputs utilizados en los formularios*/
 input[type="text"],
 input[type="email"],
+input[type="password"], 
 input[type="tel"],
 input[type="number"],
 input[type="date"],
@@ -487,49 +488,50 @@ Diseño del login*/
             margin-bottom: 25px;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #183a5e;
-        }
-
         .form-group input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
             border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
         }
 
-        .form-actions {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
+        .form-group {
+            margin-bottom: 16px;
         }
+
+        .form-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
 
         .form-actions button {
-            background-color: #183a5e;
-            color: #fff;
-            border: none;
             padding: 10px 20px;
             border-radius: 8px;
+            background-color: #002b5c;
+            color: white;
+            border: none;
             cursor: pointer;
-            width: 48%;
         }
 
-        .form-actions button:hover {
-            background-color: #145ba0;
+        .form-actions2 {
+            display: flex;
+            justify-content: center;
         }
-        
-        /*link normal*/
-        .azul{
-            text-decoration: underline;
-            color: blue;
-        }
+
+        .forgotpassword {
+    display: block;
+    text-align: center;
+    margin: 10px 0 20px 0; /* espacio superior e inferior */
+    color: #0000EE;
+    font-size: 14px;
+    text-decoration: none;
+}
+
         /*boton egistro*/
 .form-actions2 {
             margin-top: 20px;
@@ -622,3 +624,79 @@ Diseño del login*/
             margin-bottom: 1rem;
         }
       
+/*CSS DE LA PAGINA DE INICIO*/
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background-image: url('{% static 'todo/images/VelurosLogo.png' %}');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.hero h2,
+.hero p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero a.boton-accion {
+    margin: 10px;
+    font-size: 18px;
+    padding: 12px 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.hero a.boton-accion:hover {
+    background-color: #34cc8d;
+    transform: scale(1.05);
+}
+
+.container {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.bienvenida {
+    font-size: 2.5rem;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.mensaje {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.botones-inicio {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-principal {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-principal:hover {
+    background-color: #0056b3;
+}
+
+.btn-secundario {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secundario:hover {
+    background-color: #5a6268;
+}

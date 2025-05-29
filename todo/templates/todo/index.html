@@ -1,15 +1,26 @@
+{% extends "todo/layout.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-    <link rel="stylesheet" href="{% static 'todo/styles.css' %}">
-</head>
-<body>
-    <h1>Bienvenido a la página Index</h1>
-    <p>¡Esta es tu primera página en Django!</p>
-    <button><a href="{% url 'home' %}">Tabla</a></button>
-    <button><a href="{% url 'login' %}">Iniciar sesion</a></button>
-</body>
-</html>
+
+{% block title %}Inicio | Veluweb{% endblock %}
+
+{% block content %}
+<section class="hero" style="text-align: center; padding: 80px 20px; background-image: url('{% static 'todo/images/Veluroslogo.png' %}'); background-size: cover; background-position: center; color: white;">
+    <h2 style="font-size: 48px; margin-bottom: 20px;">Bienvenido a Veluweb</h2>
+    <p style="font-size: 20px;">Tu sistema inteligente para la gestión de clientes, facturas y más.</p>
+    <div style="margin-top: 40px;">
+        <a class="boton-accion" href="{% url 'home' %}">Ir a Tabla</a>
+        <a class="boton-accion" href="{% url 'login' %}">Iniciar sesión</a>
+    </div>
+</section>
+
+<div class="contenedor-grid" style="margin-top: 60px;">
+    <section>
+        <img src="{% static 'img/tabla.png' %}" alt="Tabla de datos">
+        <a href="{% url 'home' %}">Ver Tabla</a>
+    </section>
+    <section>
+        <img src="{% static 'img/login.png' %}" alt="Login de usuario">
+        <a href="{% url 'login' %}">Acceso Usuarios</a>
+    </section>
+</div>
+{% endblock %}

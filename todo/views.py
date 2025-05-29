@@ -74,6 +74,9 @@ def registro_view(request):
             return redirect('login')
     return render(request, 'todo/registro.html')
 
+def index(request):
+    return render(request, "todo/index.html")
+
 
 def enviar_codigo_reset(user):
     token = PasswordResetToken.objects.create(
