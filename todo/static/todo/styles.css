@@ -525,3 +525,100 @@ Diseño del login*/
             background-color: #145ba0;
         }
         
+        /*link normal*/
+        .azul{
+            text-decoration: underline;
+            color: blue;
+        }
+        /*boton egistro*/
+.form-actions2 {
+            margin-top: 20px;
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+        }
+
+/*CSS recuperacion*/
+
+ .recuperacion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .recovery-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 450px;
+            width: 100%;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #183a5e 0%, #145ba0 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .card-body {
+            padding: 2.5rem;
+        }
+        
+        .form-control {
+            border-radius: 12px;
+            border: 2px solid #e1e5e9;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #183a5e;
+            box-shadow: 0 0 0 0.2rem rgba(24, 58, 94, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #183a5e 0%, #145ba0 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(24, 58, 94, 0.3);
+        }
+        
+        .btn-outline-secondary {
+            border-radius: 12px;
+            border: 2px solid #183a5e;
+            color: #183a5e;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: #183a5e;
+            border-color: #183a5e;
+        }
+        
+        .alert {
+            border-radius: 12px;
+            border: none;
+        }
+        
+        .text-muted {
+            color: #6c757d !important;
+        }
+        
+        .recovery-icon {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+      

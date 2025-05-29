@@ -68,3 +68,6 @@ def registro_view(request):
             user.save()
             return redirect('login')
     return render(request, 'todo/registro.html')
+
+def recuperacion(request):
+    return render(request, 'todo/recuperacion.html')
