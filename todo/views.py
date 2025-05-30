@@ -74,10 +74,6 @@ def registro_view(request):
             return redirect('login')
     return render(request, 'todo/registro.html')
 
-def index(request):
-    return render(request, "todo/index.html")
-
-
 def enviar_codigo_reset(user):
     token = PasswordResetToken.objects.create(
         user=user,
@@ -102,6 +98,18 @@ def recuperacion(request):
         except User.DoesNotExist:
             messages.error(request, 'No se encontró una cuenta con ese correo.')
     return render(request, 'todo/recuperacion.html')
+
+def recuperar_contrasena(request):
+    return render(request, 'todo/recuperar_contrasena.html')
+
+def correo_enviado(request):
+    return render(request, 'todo/correo_enviado.html')
+
+def confirmar_contrasena(request):
+    return render(request, 'todo/confirmar_contrasena.html')
+
+def contrasena_cambiada(request):
+    return render(request, 'todo/contrasena_cambiada.html')
 
 def verificar_codigo(request):
     if request.method == 'POST':
