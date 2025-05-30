@@ -9,7 +9,6 @@ from .models import PasswordResetToken
 from django.utils import timezone
 from django.core.mail import send_mail
 from datetime import timedelta
-import uuid
 
 def home(request):
     clientes = Cliente.objects.all()
@@ -47,30 +46,36 @@ def eliminar(request, cliente_id):
 def index(request):
     return render(request, 'todo/index.html')
 
-
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        correo = request.POST['correo']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None and user.email == correo:
+        correo = request.POST.get('correo')
+        password1 = request.POST.get('password1')
+        user = authenticate(request, username=correo, password=password1)  
+        if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Credenciales incorrectas')
+            messages.error(request, 'Correo o contraseña incorrectos')
+    
     return render(request, 'todo/login.html')
 
 def registro_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         correo = request.POST['correo']
-        password = request.POST['password']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        
+        if password1 != password2:
+            messages.error(request, 'Las contraseñas no coinciden')
+            return render(request, 'todo/registro.html')
+        
         if User.objects.filter(username=username).exists():
             messages.error(request, 'El usuario ya existe')
         else:
-            user = User.objects.create_user(username=username, email=correo, password=password)
-            user.save()
+            user = User.objects.create_user(username=username, email=correo, password=password1)  # ✅ Corregido: password en lugar de password1
+            user.save()  # Esta línea es innecesaria ya que create_user() ya guarda el usuario
+            messages.success(request, 'Usuario registrado correctamente')
             return redirect('login')
     return render(request, 'todo/registro.html')
 

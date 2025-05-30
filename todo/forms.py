@@ -2,8 +2,9 @@ from django import forms
 from .models import Cliente
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
+from django.contrib.auth.forms import AuthenticationForm
 
-class ClienteForm(forms.ModelForm):
+class ClienteForm(forms.ModelForm): #Formulario para registrar clientes
     telefono = forms.CharField(
         max_length=10,
         min_length=10,
@@ -21,7 +22,7 @@ class ClienteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
-    class Meta:
+    class Meta:     #validación de datos del formulario registro
         model = Cliente
         fields = ['nombre', 'apellido', 'correo', 'telefono']
         widgets = {
@@ -31,15 +32,41 @@ class ClienteForm(forms.ModelForm):
         }
         error_messages = {
             'nombre': {'required': 'Este campo es obligatorio.'},
-            'apellido': {'required': 'Este campo es obligatorio.'},
+            # 'apellido': {'required': 'Este campo es obligatorio.'}
             'correo': {
                 'required': 'Este campo es obligatorio.',
                 'invalid': 'Ingrese un correo válido.',
             },
         }
 
-    def clean_correo(self):
+    def clean_correo(self): #validación de correo
         correo = self.cleaned_data.get('correo')
         if Cliente.objects.filter(correo=correo).exists():
             raise ValidationError('Este correo ya está registrado.')
         return correo
+
+#Formulario de login
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(
+        max_length=254,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Correo electrónico',
+            'required': True,
+        }),
+        label='Correo electrónico'
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Contraseña',
+            'required': True,
+        }),
+        label='Contraseña'
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Personalizar mensajes de error
+        self.error_messages['invalid_login'] = 'Correo o contraseña incorrectos.'
+        self.error_messages['inactive'] = 'Esta cuenta está inactiva.'

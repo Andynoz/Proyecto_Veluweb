@@ -543,7 +543,7 @@ Diseño del login*/
 /*CSS recuperacion*/
 
  .recuperacion {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: white;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -629,7 +629,7 @@ Diseño del login*/
 .hero {
     text-align: center;
     padding: 80px 20px;
-    background-image: url('{% static 'todo/images/VelurosLogo.png' %}');
+    background-image: url('{% static 'todo/images/Veluroslogo.png' %}');
     background-size: cover;
     background-position: center;
     color: white;
