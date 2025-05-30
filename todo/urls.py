@@ -12,9 +12,9 @@ urlpatterns = [
     path('registro/', views.registro_view, name='registro'),
     path('recuperacion/', views.recuperacion, name='recuperacion'),
     path('recuperar/', views.recuperar_contrasena, name='recuperar_contrasena'),
-    path('recuperar/enviado/', views.correo_enviado, name='correo_enviado'),
-    path('recuperar/confirmar/', views.confirmar_contrasena, name='confirmar_contrasena'),
-    path('recuperar/completado/', views.contrasena_cambiada, name='contrasena_cambiada'),
+    path('recuperacion/enviado/', views.correo_enviado, name='correo_enviado'),
+    path('recuperacion/confirmar/', views.confirmar_contrasena, name='confirmar_contrasena'),
+    path('recuperacion/completado/', views.contrasena_cambiada, name='contrasena_cambiada'),
     path('verificar-codigo/', views.verificar_codigo, name='verificar_codigo'),
     path('nueva-contrasena/', views.nueva_contrasena, name='nueva_contrasena'),
 ]
