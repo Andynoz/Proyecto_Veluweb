@@ -30,14 +30,14 @@
                     <!-- Body -->
                     <div class="card-body">
                         <!-- Formulario -->
-                        <form method="POST">
+                        <form method="POST" action="">
                             {% csrf_token %}
                             
                             <div class="mb-4">
                                 <label for="correo" class="form-label fw-bold text-dark">
                                     <i class="fas fa-envelope me-2"></i>Correo Electrónico
                                 </label>
-                                <input type="correo" 
+                                <input type="email" 
                                        class="form-control form-control-lg" 
                                        id="correo" 
                                        name="correo" 
