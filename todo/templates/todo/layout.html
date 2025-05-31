@@ -24,6 +24,12 @@
           <li><a href="{% url 'index' %}">Inicio</a></li>
           <li><a href="{% url 'home' %}">Tabla</a></li>
           <li><a href="{% url 'agregar' %}">Agregar Cliente</a></li>
+          {% if user.is_authenticated %}   <!--Esto es para que en caso de que el usuario no esté autenticado no se muestre la opción de cerrar sesión --> 
+          <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+          <li><a href="{% url 'registro' %}">Registrarse</a></li>
+          {% endif %}
         </ul>
       </nav>
     </div>

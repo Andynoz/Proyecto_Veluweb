@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.http import HttpResponse
 from .models import Cliente
-from .forms import ClienteForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import PasswordResetToken
 from django.utils import timezone
 from django.core.mail import send_mail
 from datetime import timedelta
+from django.db import IntegrityError
+from django.contrib.auth.backends import ModelBackend
 
 def home(request):
     clientes = Cliente.objects.all()
@@ -46,39 +49,59 @@ def eliminar(request, cliente_id):
 def index(request):
     return render(request, 'todo/index.html')
 
-def login_view(request):
-    if request.method == 'POST':
-        correo = request.POST.get('correo')
-        password1 = request.POST.get('password1')
-        user = authenticate(request, username=correo, password=password1)  
-        if user is not None:
+
+
+def registro(request):  # Vista para registrar un nuevo usuario
+    if request.method == 'GET':
+        return render(request, 'todo/registro.html', {
+            'form': UserCreationForm()
+        })
+    else:
+        if request.POST['password1'] == request.POST['password2']:
+            try:
+                email = request.POST['email']
+                user = User.objects.create_user(
+                    username=email,
+                    email=email,                    
+                    password=request.POST['password1'])
+                user.save()
+                login(request, user)
+                return redirect('home')
+            except IntegrityError:
+                return render(request, 'todo/registro.html', {
+                    'form': UserCreationForm(),
+                    'error': 'El usuario ya existe'
+                })
+        return render(request, 'todo/registro.html', {
+                    'form': UserCreationForm(),
+                    'error': 'Las contraseñas no coinciden'
+        })
+
+def signout(request): # Vista para cerrar sesión
+    logout(request)
+    return redirect('signIn')
+    
+    
+def signIn(request): #Vista para iniciar sesión
+    if request.method == 'GET':
+        return render(request, 'todo/signIn.html', {
+            'form': AuthenticationForm()
+        })
+    else:
+        user = authenticate(
+            request, username=request.POST['email'],
+            password=request.POST['password'])
+        
+        if user is None:
+            return render(request, 'todo/signIn.html', {
+                'form': AuthenticationForm,
+                'error': 'Usuario o contraseña incorrectos'
+            })
+        else:
             login(request, user)
             return redirect('home')
-        else:
-            messages.error(request, 'Correo o contraseña incorrectos')
-    
-    return render(request, 'todo/login.html')
-
-def registro_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        correo = request.POST['correo']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
         
-        if password1 != password2:
-            messages.error(request, 'Las contraseñas no coinciden')
-            return render(request, 'todo/registro.html')
         
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'El usuario ya existe')
-        else:
-            user = User.objects.create_user(username=username, email=correo, password=password1)  # ✅ Corregido: password en lugar de password1
-            user.save()  # Esta línea es innecesaria ya que create_user() ya guarda el usuario
-            messages.success(request, 'Usuario registrado correctamente')
-            return redirect('login')
-    return render(request, 'todo/registro.html')
-
 def enviar_codigo_reset(user):
     token = PasswordResetToken.objects.create(
         user=user,

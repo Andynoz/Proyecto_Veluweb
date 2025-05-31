@@ -135,3 +135,5 @@ DEFAULT_FROM_EMAIL = 'veluweb1@gmail.com'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTHENTICATION_BACKENDS = ['todo.backend.EmailBackend'] # Usar el backend personalizado para autenticación por correo electrónico
+
