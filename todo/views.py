@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse
 from .models import Cliente
+from .forms import ClienteForm
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
@@ -13,16 +14,21 @@ from datetime import timedelta
 from django.db import IntegrityError
 from django.contrib.auth.backends import ModelBackend
 
+
+
 def home(request):
+    return render(request, 'todo/home.html')  
+
+def tabla(request):
     clientes = Cliente.objects.all()
-    return render(request, 'todo/home.html', {'clientes': clientes})
+    return render(request, 'todo/tabla.html', {'clientes': clientes})
 
 def agregar(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('tabla')
     else:
         form = ClienteForm()
     
@@ -35,7 +41,7 @@ def editar(request, cliente_id):
         form = ClienteForm(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('tabla')
     else:
         form = ClienteForm(instance=cliente)
     
@@ -44,7 +50,7 @@ def editar(request, cliente_id):
 def eliminar(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     cliente.delete()
-    return redirect('home')
+    return redirect('tabla')
 
 def index(request):
     return render(request, 'todo/index.html')
@@ -66,7 +72,7 @@ def registro(request):  # Vista para registrar un nuevo usuario
                     password=request.POST['password1'])
                 user.save()
                 login(request, user)
-                return redirect('home')
+                return redirect('index')
             except IntegrityError:
                 return render(request, 'todo/registro.html', {
                     'form': UserCreationForm(),
@@ -79,7 +85,7 @@ def registro(request):  # Vista para registrar un nuevo usuario
 
 def signout(request): # Vista para cerrar sesión
     logout(request)
-    return redirect('signIn')
+    return redirect('home')
     
     
 def signIn(request): #Vista para iniciar sesión
@@ -99,7 +105,7 @@ def signIn(request): #Vista para iniciar sesión
             })
         else:
             login(request, user)
-            return redirect('home')
+            return redirect('index')
         
         
 def enviar_codigo_reset(user):
@@ -168,3 +174,7 @@ def nueva_contrasena(request):
         return redirect('login')
     
     return render(request, 'todo/nueva_contrasena.html')
+
+
+def bienvenida(request):
+    return render(request, 'bienvenida.html')

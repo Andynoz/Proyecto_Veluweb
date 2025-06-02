@@ -4,7 +4,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import AuthenticationForm
 
-'''class ClienteForm(forms.ModelForm): #Formulario para registrar clientes
+
+class ClienteForm(forms.ModelForm): #Formulario para registrar clientes
     telefono = forms.CharField(
         max_length=10,
         min_length=10,
@@ -69,4 +70,4 @@ class LoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         # Personalizar mensajes de error
         self.error_messages['invalid_login'] = 'Correo o contraseña incorrectos.'
-        self.error_messages['inactive'] = 'Esta cuenta está inactiva.' '''
+        self.error_messages['inactive'] = 'Esta cuenta está inactiva.' 

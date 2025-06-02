@@ -1,44 +1,16 @@
-{% extends 'todo/layout.html' %}
+{% extends "todo/layout.html" %}
 {% load static %}
 
+{% block title %}Inicio | Veluweb{% endblock %}
 
 {% block content %}
-<div class="contenedor-articulos" style="position: relative">
-  <section>
-    <h2>Lista de Clientes</h2>
+<section class="hero" style="text-align: center; padding: 80px 20px;  background-size: cover; background-position: center; color: black;">
+    <h2 style="font-size: 48px; margin-bottom: 20px;">Bienvenido a Veluweb</h2>
+    <p style="font-size: 20px;">Tu sistema inteligente para la gestión de clientes, facturas y más.</p>
+    <div style="margin-top: 40px;">
+        <a class="boton-accion" href="{% url 'registro' %}">Registrarse</a>
+        <a class="boton-accion" href="{% url 'signIn' %}">Iniciar sesión</a>
+    </div>
+</section>
 
-
-    <table class="formulario">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Correo</th>
-          <th>Teléfono</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for cliente in clientes %}
-        <tr>
-          <td>{{ cliente.id }}</td>
-          <td>{{ cliente.nombre }}</td>
-          <td>{{ cliente.apellido }}</td>
-          <td>{{ cliente.correo }}</td>
-          <td>{{ cliente.telefono }}</td>
-          <td>
-              <a class="clickeable boton-accion" href="{% url 'eliminar' cliente.id %}">Eliminar</a>
-              <a class="clickeable boton-accion" href="{% url 'editar' cliente.id %}">Editar</a>
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="6">No hay clientes registrados.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </section>
-</div>
 {% endblock %}
