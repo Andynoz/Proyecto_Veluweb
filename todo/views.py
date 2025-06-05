@@ -171,7 +171,7 @@ def nueva_contrasena(request):
         user.save()
         del request.session['reset_user_id']
         messages.success(request, 'Contraseña actualizada correctamente.')
-        return redirect('login')
+        return redirect('signIn')
     
     return render(request, 'todo/nueva_contrasena.html')
 
