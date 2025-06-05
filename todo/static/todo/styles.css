@@ -154,10 +154,7 @@ header img{
     text-decoration: none;
     color: #fff;
 }
-.menu-nav a:hover{  /*esto es para que cuando se pase sobre un enlace haga un pequeño efecto de cambio para aumentar la intuitividad*/
-    text-decoration: underline;
-    color: #cfdbdf;
-}
+
 
 .contenedor-grid{   /*gracias a este bloque se permite poner los section del indice en forma de 2x2*/
     display: grid;
@@ -172,11 +169,8 @@ header img{
     border: 1px solid #000;
     border-radius: 3px;
     background-color: #f1f4f7;
-    transition: 0.2s ease;   /*una animación para que cuando un sectión aumente su tamaño sea mas fluido*/
 }
-.contenedor-grid section:hover{   /*esto hace que cuando se pase el raton sobre un section escale ligeramente*/
-    transform: scale(1.05);
-}
+
 .contenedor-grid img{
     height: 400px;
     width: 400px;
@@ -238,13 +232,7 @@ header img{
 .contenedor-articulos p{
     font-size: 25px;
 }
-.contenedor-articulos section:hover{
-    border: 2px solid #231b94;
-}
-.contenedor-articulos section h2:hover{
-    color: #183a5e;
-    text-decoration: underline;
-}
+
 
 .clickeable {
     cursor: pointer;
@@ -552,7 +540,7 @@ Diseño del login*/
     text-decoration: none;
 }
 
-        /*boton egistro*/
+        /*boton registro*/
 .form-actions2 {
             margin-top: 20px;
             display: flex;
