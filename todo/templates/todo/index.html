@@ -1,15 +1,14 @@
+{% extends "todo/layout2.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-    <link rel="stylesheet" href="{% static 'todo/styles.css' %}">
-</head>
-<body>
-    <h1>Bienvenido a la página Index</h1>
-    <p>¡Esta es tu primera página en Django!</p>
-    <button><a href="{% url 'home' %}">Tabla</a></button>
-    <button><a href="{% url 'login' %}">Iniciar sesion</a></button>
-</body>
-</html>
+
+{% block title %}Inicio | Veluweb{% endblock %}
+
+{% block content %}
+<section class="hero" style="text-align: center; padding: 80px 20px;  background-size: cover; background-position: center; color: black;">
+    <h2 style="font-size: 48px; margin-bottom: 20px;">Bienvenido a Veluweb</h2>
+    <p style="font-size: 20px;">Tu sistema inteligente para la gestión de clientes, facturas y más.</p>
+</section>
+
+{% endblock %}
+
+
