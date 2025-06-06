@@ -3,6 +3,7 @@ from .models import Cliente
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import AuthenticationForm
+from .models import Producto
 
 
 class ClienteForm(forms.ModelForm): #Formulario para registrar clientes
@@ -71,3 +72,10 @@ class LoginForm(AuthenticationForm):
         # Personalizar mensajes de error
         self.error_messages['invalid_login'] = 'Correo o contraseña incorrectos.'
         self.error_messages['inactive'] = 'Esta cuenta está inactiva.' 
+
+# PRODUCTOS
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'codigo', 'precio', 'descripcion', 'imagen']

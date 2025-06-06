@@ -5,18 +5,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Velurapp{% endblock %}</title>
-   
+  
   <!-- Estilo personalizado -->
   <link rel="stylesheet" href="{% static 'todo/styles.css' %}">
 </head>
 <body class="desplegable">
-   
+  
   <!-- Checkbox oculto para controlar el menú -->
   <input type="checkbox" id="menu-toggle" class="control-menu-lateral">
   
   <!-- Overlay para cerrar el menú -->
   <label for="menu-toggle" class="fondo-oscuro"></label>
-   
+  
   <!-- Encabezado con menú hamburguesa -->
   <header class="encabezado-principal">
     <div class="wrapper-encabezado">
@@ -55,7 +55,7 @@
         </a>
       </li>
       <li class="item-navegacion">
-        <a href="#" class="link-navegacion">
+        <a href="{% url 'productos_index' %}" class="link-navegacion">
           <span class="etiqueta-opcion">Productos</span>
         </a>
       </li>
@@ -71,7 +71,7 @@
       </li>
     </ul>
   </nav>
-   
+  
   <!-- Contenido dinámico -->
   <main class="seccion-contenido" id="contenidoPrincipal">
     {% block content %}
@@ -81,7 +81,7 @@
     </div>
     {% endblock %}
   </main>
-   
+  
   <!-- Footer -->
   <footer class="pie-de-pagina">
     <p class="texto-copyright">Velurapp &copy; 2025 - Todos los derechos reservados</p>

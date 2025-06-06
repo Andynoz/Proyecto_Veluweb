@@ -20,4 +20,9 @@ urlpatterns = [
     path('verificar-codigo/', views.verificar_codigo, name='verificar_codigo'),
     path('nueva-contrasena/', views.nueva_contrasena, name='nueva_contrasena'),
     path('bienvenida/', views.bienvenida, name='bienvenida'),
+# CRUD Productos
+    path('productos/', views.productos_index, name='productos_index'),
+    path('productos/crear/', views.crear_producto, name='crear_producto'),
+    path('productos/editar/<int:pk>/', views.editar_producto, name='editar_producto'),
+    path('productos/eliminar/<int:pk>/', views.eliminar_producto, name='eliminar_producto'),
 ]
