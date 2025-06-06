@@ -13,6 +13,8 @@ from django.core.mail import send_mail
 from datetime import timedelta
 from django.db import IntegrityError
 from django.contrib.auth.backends import ModelBackend
+from .models import Producto
+from .forms import ProductoForm
 
 
 
@@ -178,3 +180,31 @@ def nueva_contrasena(request):
 
 def bienvenida(request):
     return render(request, 'bienvenida.html')
+
+# PRODUCTOS
+
+def productos_index(request):
+    productos = Producto.objects.all()
+    return render(request, 'productos/index.html', {'productos': productos})
+
+def crear_producto(request):
+    form = ProductoForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('productos_index')
+    return render(request, 'productos/crear.html', {'form': form})  # ← plantilla real
+
+def editar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    form = ProductoForm(request.POST or None, request.FILES or None, instance=producto)
+    if form.is_valid():
+        form.save()
+        return redirect('productos_index')
+    return render(request, 'productos/editar.html', {'form': form})  # ← plantilla real
+
+def eliminar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    if request.method == 'POST':
+        producto.delete()
+        return redirect('productos_index')
+    return render(request, 'productos/eliminar.html', {'producto': producto})
