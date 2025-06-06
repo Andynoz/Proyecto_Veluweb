@@ -74,7 +74,7 @@ def registro(request):  # Vista para registrar un nuevo usuario
                     password=request.POST['password1'])
                 user.save()
                 login(request, user)
-                return redirect('index')
+                return redirect('signIn')
             except IntegrityError:
                 return render(request, 'todo/registro.html', {
                     'form': UserCreationForm(),
