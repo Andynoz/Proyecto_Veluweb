@@ -8,8 +8,15 @@
     <h2 style="font-size: 48px; margin-bottom: 20px;">Bienvenido a Veluweb</h2>
     <p style="font-size: 20px;">Tu sistema inteligente para la gestión de clientes, facturas y más.</p>
     <div style="margin-top: 40px;">
-        <a class="boton-accion" href="{% url 'registro' %}">Registrarse</a>
-        <a class="boton-accion" href="{% url 'signIn' %}">Iniciar sesión</a>
+
+        <button class="btn btn-primary btn-lg">
+        <a href="{% url 'registro' %}">Registrarse</a>
+        </button>
+
+        <button class="btn btn-primary btn-lg">
+        <a href="{% url 'signIn' %}">Iniciar sesión</a>
+        </button>
+
     </div>
 </section>
 

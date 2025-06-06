@@ -29,8 +29,14 @@
           <td>{{ cliente.correo }}</td>
           <td>{{ cliente.telefono }}</td>
           <td>
-              <a class="clickeable boton-accion" href="{% url 'eliminar' cliente.id %}">Eliminar</a>
-              <a class="clickeable boton-accion" href="{% url 'editar' cliente.id %}">Editar</a>
+            
+            <button class=" boton-accion btn btn-primary btn-lg">
+            <a href="{% url 'eliminar' cliente.id %}">Archivar</a>
+            </button>
+
+            <button class="boton-accion btn btn-primary btn-lg">
+            <a href="{% url 'editar' cliente.id %}">Modificar</a>
+            </button>
           </td>
         </tr>
         {% empty %}
