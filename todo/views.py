@@ -16,7 +16,8 @@ from django.contrib.auth.backends import ModelBackend
 from .models import Producto
 from .forms import ProductoForm
 from .models import Factura, DetalleFactura
-from .forms import FacturaForm, DetalleFacturaFormSet
+from .forms import FacturaForm, DetalleFacturaFormSet, DetalleFacturaForm
+from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 
 
@@ -254,25 +255,49 @@ def crear_factura(request):
 @login_required
 def detalle_factura(request, pk):
     factura = get_object_or_404(Factura, pk=pk)
-    return render(request, 'facturas/detalle.html', {'factura': factura})
+    detalles = DetalleFactura.objects.filter(factura=factura)
+    total = sum(d.cantidad * d.precio_unitario for d in detalles)
+
+    return render(request, 'facturas/detalle.html', {
+        'factura': factura,
+        'detalles': detalles,
+        'total_factura': total,
+    })
+
 
 @login_required
+
 def editar_factura(request, pk):
-    factura = Factura.objects.get(pk=pk)
-    form = FacturaForm(request.POST or None, instance=factura)
-    formset = DetalleFacturaFormSet(request.POST or None, instance=factura)
+    factura = get_object_or_404(Factura, pk=pk)
+    DetalleFormSet = modelformset_factory(DetalleFactura, form=DetalleFacturaForm, extra=1, can_delete=True)
 
     if request.method == 'POST':
+        form = FacturaForm(request.POST, instance=factura)
+        formset = DetalleFormSet(request.POST, queryset=DetalleFactura.objects.filter(factura=factura))
+
         if form.is_valid() and formset.is_valid():
             form.save()
-            formset.save()
+            detalles = formset.save(commit=False)
+
+            for detalle in detalles:
+                detalle.factura = factura
+                detalle.save()
+
+            
+            for obj in formset.deleted_objects:
+                obj.delete()
+
             return redirect('lista_facturas')
+    else:
+        form = FacturaForm(instance=factura)
+        formset = DetalleFormSet(queryset=DetalleFactura.objects.filter(factura=factura))
 
     return render(request, 'facturas/editar.html', {
         'form': form,
         'formset': formset,
-        'factura': factura
+        'factura': factura,
     })
+
 
 @login_required
 def eliminar_factura(request, pk):
