@@ -5,72 +5,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar Contraseña</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'todo/styles.css' %}">
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blue-custom': '#145ba0',
+                        'blue-dark': '#183a5e',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="recuperacion">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="recovery-card">
+<body class="bg-white min-h-screen flex items-center justify-center">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-center">
+            <div class="w-full max-w-md">
+                <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
                     <!-- Header -->
-                    <div class="card-header">
-                        <div class="logo">
-<<<<<<< HEAD
-                         <img src="{% static 'todo/images/logo.png' %}" alt="VeluWeb Logo">
-=======
-                            <img src="{% static 'todo/images/logo.png' %}" alt="Logo de Veluros">
->>>>>>> 1349669239122d3889efccfaa7a3e65d78ff0cdf
+                    <div class="bg-gradient-to-br from-blue-dark to-blue-custom text-white text-center p-8">
+                        <div class="block text-center mb-5">
+                            <img 
+                                src="{% static 'todo/images/logo.png' %}" 
+                                alt="VeluWeb Logo"
+                                class="max-w-[120px] max-h-20 h-auto w-auto block mx-auto object-contain"
+                            >
                         </div>
-                        <div class="recovery-icon">
+                        <div class="text-5xl text-white mb-4">
                             🔐
                         </div>
-                        <h3 class="mb-0">Recuperar Contraseña</h3>
-                        <p class="mt-2 mb-0 opacity-75">Te enviaremos un enlace para restablecer tu contraseña</p>
+                        <h3 class="mb-0 text-xl font-semibold">Recuperar Contraseña</h3>
+                        <p class="mt-2 mb-0 opacity-75 text-sm">Te enviaremos un enlace para restablecer tu contraseña</p>
                     </div>
                     
                     <!-- Body -->
-                    <div class="card-body">
+                    <div class="p-10">
                         <!-- Formulario -->
                         <form method="POST" action="">
                             {% csrf_token %}
                             
-                            <div class="mb-4">
-                                <label for="correo" class="form-label fw-bold text-dark">
-                                    <i class="fas fa-envelope me-2"></i>Correo Electrónico
+                            <div class="mb-6">
+                                <label for="correo" class="block mb-2 font-bold text-gray-900 text-sm">
+                                    Correo Electrónico
                                 </label>
-                                <input type="email" 
-                                       class="form-control form-control-lg" 
-                                       id="correo" 
-                                       name="correo" 
-                                       placeholder="Ingresa tu correo electrónico"
-                                       required>
-                                <div class="form-text text-muted">
+                                <input 
+                                    type="email"
+                                    class="w-full rounded-xl border-2 border-gray-300 py-3 px-4 text-lg transition-all duration-300 ease-in-out focus:border-blue-dark focus:ring-4 focus:ring-blue-dark focus:ring-opacity-25 focus:outline-none"
+                                    id="correo"
+                                    name="correo"
+                                    placeholder="Ingresa tu correo electrónico"
+                                    required
+                                >
+                                <div class="mt-1 text-sm text-gray-500">
                                     Ingresa el correo asociado a tu cuenta
                                 </div>
                             </div>
                             
                             <!-- Botones -->
-                            <div class="d-grid gap-3">
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    <i class="fas fa-paper-plane me-2"></i>
-                                    Enviar Enlace de Recuperación
+                            <div class="space-y-3">
+                                <button 
+                                    type="submit" 
+                                    class="w-full bg-gradient-to-br from-blue-dark to-blue-custom border-none rounded-xl py-3 px-6 font-semibold text-white text-lg transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-dark/30"
+                                >
+                                        Enviar Enlace de Recuperación
                                 </button>
                                 
-                                <a href="{% url 'signIn' %}" class="btn btn-outline-secondary btn-lg">
-                                    <i class="fas fa-arrow-left me-2"></i>
-                                    Volver al Inicio de Sesión
+                                <a 
+                                    href="{% url 'signIn' %}" 
+                                    class="w-full block text-center rounded-xl border-2 border-blue-dark text-blue-dark font-semibold py-3 px-6 text-lg transition-all duration-300 ease-in-out hover:bg-blue-dark hover:text-white no-underline"
+                                >
+                                    ← Volver al Inicio de Sesión
                                 </a>
                             </div>
                         </form>
                         
                         <!-- Información adicional -->
-                        <div class="mt-4 text-center">
-                            <small class="text-muted">
+                        <div class="mt-6 text-center">
+                            <small class="text-gray-500">
                                 ¿No tienes cuenta? 
-                                <a href="{% url 'registro' %}" class="text-decoration-none fw-bold" style="color: #183a5e;">
+                                <a href="{% url 'registro' %}" class="no-underline font-bold text-blue-dark hover:underline">
                                     Regístrate aquí
                                 </a>
                             </small>
