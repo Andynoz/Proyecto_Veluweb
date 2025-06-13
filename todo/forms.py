@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Producto
+from .models import Factura, DetalleFactura
+from django.forms import inlineformset_factory
 
 
 class ClienteForm(forms.ModelForm): #Formulario para registrar clientes
@@ -79,3 +81,21 @@ class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
         fields = ['nombre', 'codigo', 'precio', 'descripcion', 'imagen']
+
+
+class FacturaForm(forms.ModelForm):
+    class Meta:
+        model = Factura
+        fields = ['cliente']
+
+class DetalleFacturaForm(forms.ModelForm):
+    class Meta:
+        model = DetalleFactura
+        fields = ['producto', 'cantidad', 'precio_unitario']
+
+DetalleFacturaFormSet = inlineformset_factory(
+    Factura,
+    DetalleFactura,
+    form=DetalleFacturaForm,
+    extra=1,  # Puedes ajustar la cantidad de líneas iniciales
+)

@@ -15,6 +15,8 @@ from django.db import IntegrityError
 from django.contrib.auth.backends import ModelBackend
 from .models import Producto
 from .forms import ProductoForm
+from .models import Factura, DetalleFactura
+from .forms import FacturaForm, DetalleFacturaFormSet
 
 
 
@@ -208,3 +210,59 @@ def eliminar_producto(request, pk):
         producto.delete()
         return redirect('productos_index')
     return render(request, 'productos/eliminar.html', {'producto': producto})
+
+
+#FACTURAS
+
+def lista_facturas(request):
+    facturas = Factura.objects.all()
+    return render(request, 'facturas/lista.html', {'facturas': facturas})
+
+def crear_factura(request):
+    if request.method == 'POST':
+        form = FacturaForm(request.POST)
+        formset = DetalleFacturaFormSet(request.POST)
+
+        if form.is_valid() and formset.is_valid():
+            factura = form.save()
+            detalles = formset.save(commit=False)
+            for detalle in detalles:
+                detalle.factura = factura
+                detalle.save()
+            return redirect('lista_facturas')
+    else:
+        form = FacturaForm()
+        formset = DetalleFacturaFormSet()
+
+    return render(request, 'facturas/crear.html', {
+        'form': form,
+        'formset': formset
+    })
+
+def detalle_factura(request, pk):
+    factura = get_object_or_404(Factura, pk=pk)
+    return render(request, 'facturas/detalle.html', {'factura': factura})
+
+def editar_factura(request, pk):
+    factura = Factura.objects.get(pk=pk)
+    form = FacturaForm(request.POST or None, instance=factura)
+    formset = DetalleFacturaFormSet(request.POST or None, instance=factura)
+
+    if request.method == 'POST':
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            formset.save()
+            return redirect('lista_facturas')
+
+    return render(request, 'facturas/editar.html', {
+        'form': form,
+        'formset': formset,
+        'factura': factura
+    })
+
+def eliminar_factura(request, pk):
+    factura = Factura.objects.get(pk=pk)
+    if request.method == 'POST':
+        factura.delete()
+        return redirect('lista_facturas')
+    return render(request, 'facturas/eliminar.html', {'factura': factura})

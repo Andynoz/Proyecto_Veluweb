@@ -36,3 +36,27 @@ class Producto(models.Model):
 
     def __str__(self):
         return f"{self.nombre} - {self.codigo}"
+
+
+class Factura(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Factura #{self.id} - {self.cliente}"
+
+    def total(self):
+        return sum(item.subtotal() for item in self.detallefactura_set.all())
+    
+
+class DetalleFactura(models.Model):
+    factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField()
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def subtotal(self):
+        return self.cantidad * self.precio_unitario
+
+    def __str__(self):
+        return f"{self.producto} x {self.cantidad}"
