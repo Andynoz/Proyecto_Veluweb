@@ -1,0 +1,34 @@
+{% extends "todo/layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Detalle de la Factura</h1>
+    <p><strong>Cliente:</strong> {{ factura.cliente }}</p>
+    <p><strong>Fecha:</strong> {{ factura.fecha }}</p>
+    <p><strong>Total:</strong> ${{ factura.total }}</p>
+
+    <h3 class="mt-4">Detalle de Productos</h3>
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalles %}
+            <tr>
+                <td>{{ item.producto.nombre }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>${{ item.precio_unitario }}</td>
+                <td>${{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'factura_list' %}" class="btn btn-secondary mt-3">Volver</a>
+</div>
+{% endblock %}
