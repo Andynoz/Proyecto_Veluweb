@@ -52,7 +52,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'clientes.urls'
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'signIn'
 LOGIN_REDIRECT_URL = 'home'
 
 TEMPLATES = [

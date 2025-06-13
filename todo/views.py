@@ -17,16 +17,19 @@ from .models import Producto
 from .forms import ProductoForm
 from .models import Factura, DetalleFactura
 from .forms import FacturaForm, DetalleFacturaFormSet
+from django.contrib.auth.decorators import login_required
 
 
 
 def home(request):
     return render(request, 'todo/home.html')  
 
+@login_required
 def tabla(request):
     clientes = Cliente.objects.all()
     return render(request, 'todo/tabla.html', {'clientes': clientes})
 
+@login_required
 def agregar(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
@@ -38,6 +41,7 @@ def agregar(request):
     
     return render(request, 'todo/agregar.html', {'form': form})
 
+@login_required
 def editar(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     
@@ -51,11 +55,13 @@ def editar(request, cliente_id):
     
     return render(request, 'todo/editar.html', {'form': form})
 
+@login_required
 def eliminar(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     cliente.delete()
     return redirect('tabla')
 
+@login_required
 def index(request):
     return render(request, 'todo/index.html')
 
@@ -185,10 +191,12 @@ def bienvenida(request):
 
 # PRODUCTOS
 
+@login_required
 def productos_index(request):
     productos = Producto.objects.all()
     return render(request, 'productos/index.html', {'productos': productos})
 
+@login_required
 def crear_producto(request):
     form = ProductoForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -196,6 +204,7 @@ def crear_producto(request):
         return redirect('productos_index')
     return render(request, 'productos/crear.html', {'form': form})  # ← plantilla real
 
+@login_required
 def editar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     form = ProductoForm(request.POST or None, request.FILES or None, instance=producto)
@@ -204,6 +213,7 @@ def editar_producto(request, pk):
         return redirect('productos_index')
     return render(request, 'productos/editar.html', {'form': form})  # ← plantilla real
 
+@login_required
 def eliminar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     if request.method == 'POST':
@@ -214,10 +224,12 @@ def eliminar_producto(request, pk):
 
 #FACTURAS
 
+@login_required
 def lista_facturas(request):
     facturas = Factura.objects.all()
     return render(request, 'facturas/lista.html', {'facturas': facturas})
 
+@login_required
 def crear_factura(request):
     if request.method == 'POST':
         form = FacturaForm(request.POST)
@@ -239,10 +251,12 @@ def crear_factura(request):
         'formset': formset
     })
 
+@login_required
 def detalle_factura(request, pk):
     factura = get_object_or_404(Factura, pk=pk)
     return render(request, 'facturas/detalle.html', {'factura': factura})
 
+@login_required
 def editar_factura(request, pk):
     factura = Factura.objects.get(pk=pk)
     form = FacturaForm(request.POST or None, instance=factura)
@@ -260,6 +274,7 @@ def editar_factura(request, pk):
         'factura': factura
     })
 
+@login_required
 def eliminar_factura(request, pk):
     factura = Factura.objects.get(pk=pk)
     if request.method == 'POST':
